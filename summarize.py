@@ -7,7 +7,7 @@ model = whisper.load_model("base")
 
 def to_transcript(filename):
     result = model.transcribe(filename.strip())
-    print("**Full Transcript:**\n" + result["text"])
+    print("**:arrow_down: Full Transcript :arrow_down:**\n" + result["text"])
     return result["text"]
 
 def do_cohere(prompt):
@@ -33,9 +33,9 @@ while True:
         t = to_transcript(line)
         items = do_cohere(t)
         for i in items:
-            print("**Summarization " + str(items.index(i) + 1) + "**")
+            print("**:arrow_down: Summarization " + str(items.index(i) + 1) + " :arrow_down:**")
             print(i)
         os.remove(line.strip())
-    except:
+    except cohere.error.CohereError:
         print("The summarization failed. :sob:")
         continue

@@ -75,7 +75,7 @@ exports.enter = function(msg, channelName) {
         return msg.reply(`The channel #${channelName} doesn't exist or isn't a voice channel.`);
     
     console.log(`Sliding into ${voiceChannel.name} ...`);
-    msg.reply('Starting recording...')
+    msg.reply(':red_circle: Starting recording...')
     voiceChannel.join()
         .then(conn => {
             
