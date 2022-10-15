@@ -32,3 +32,4 @@ while True:
     items = do_cohere(text) + [text]
     for i in items:
         print(i)
+    os.remove(line.strip())

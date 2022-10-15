@@ -11,7 +11,7 @@ let lastexit;
 let spawn = require('child_process').spawn,
     pyshell    = spawn('python', ['summarize.py']);
 pyshell.stdout.on('data', function(data){
-    client.channels.cache.get('1030656604342849599').send(data.toString())
+    data.toString().match(/.{1,1999}/g).forEach(s => client.channels.cache.get('1030656604342849599').send(s));
 });
 pyshell.stderr.on('data', function(data){
     console.log(data.toString())
