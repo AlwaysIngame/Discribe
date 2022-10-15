@@ -7,7 +7,6 @@ import whisper
 def main(filename):
     start_time = time.time()
     device = torch.device("cuda:0" if torch.cuda.is_available() else "cpu")
-    print(torch.cuda.is_available())
     model = whisper.load_model("base", device)
     result = model.transcribe(filename)
     print("--- %s seconds ---" % (time.time() - start_time))
