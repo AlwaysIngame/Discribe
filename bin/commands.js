@@ -26,7 +26,7 @@ function onmerge(pysh, msg) {
                         });
                     }
                 });
-                msg.reply("Here is your recording. Summarization will arrive soon", { files: [__dirname + `/../${currdate}.mp3`] });
+                msg.reply("Here is your recording. Transcript and summarization will arrive soon", { files: [__dirname + `/../${currdate}.mp3`] });
                 pysh.stdin.write(__dirname + `/../${currdate}.mp3\n`)
             }
         }
@@ -75,7 +75,7 @@ exports.enter = function(msg, channelName) {
         return msg.reply(`The channel #${channelName} doesn't exist or isn't a voice channel.`);
     
     console.log(`Sliding into ${voiceChannel.name} ...`);
-    msg.reply('Beginning to record...')
+    msg.reply('Starting recording...')
     voiceChannel.join()
         .then(conn => {
             

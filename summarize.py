@@ -31,10 +31,11 @@ while True:
     try:
         line = input()
         t = to_transcript(line)
-        items = ["**Summarizations Below:**"] + do_cohere(t)
+        items = do_cohere(t)
         for i in items:
+            print("**Summarization " + str(items.index(i) + 1) + "**")
             print(i)
         os.remove(line.strip())
     except:
-        print("The summarization failed.")
+        print("The summarization failed. :sunglasses:")
         continue
