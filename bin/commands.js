@@ -1,28 +1,52 @@
 const fs = require('fs');
-const { spawn } = require("child_process");
 
 const createNewChunk = () => {
     const pathToFile = __dirname + `/../recordings/${Date.now()}.pcm`;
     return fs.createWriteStream(pathToFile);
 };
 
+function onmerge() {
+    var exec = require('child_process').exec;
+    exec('ffmpeg -f s16le -ar 48000 -ac 2 -i ' + __dirname + '/../recordings/merge.pcm ' + __dirname + '/../out.mp3',
+        function (error, stdout, stderr) {
+            console.log('stdout: ' + stdout);
+            console.log('stderr: ' + stderr);
+            if (error !== null) {
+                console.log('exec error: ' + error);
+                
+            } else {
+                const dir = __dirname + '/../recordings'
+                // delete directory recursively
+                fs.readdir(dir, (err, files) => {
+                    if (err) console.log(err);
+                    for (const file of files) {
+                        fs.unlink(require('path').join(dir, file), err => {
+                            if (err) console.log(err);
+                        });
+                    }
+                });
+            }
+        }
+    );
+}
 function mg() {
-    var fs = require('fs'),
-    chunks = fs.readdirSync(__dirname + '/../recordings'),
+    var f = fs,
+    chunks = f.readdirSync(__dirname + '/../recordings'),
     inputStream,
     currentfile,
-    outputStream = fs.createWriteStream(__dirname + '/../recordings/merge.pcm');
+    outputStream = f.createWriteStream(__dirname + '/../recordings/merge.pcm');
 
     chunks.sort((a, b) => { return a - b; });
 
     function appendFiles() {
         if (!chunks.length) {
             outputStream.end(() => console.log('Finished.'));
+            onmerge();
             return;
         }
 
         currentfile = `${__dirname}/../recordings/` + chunks.shift();
-        inputStream = fs.createReadStream(currentfile);
+        inputStream = f.createReadStream(currentfile);
 
         inputStream.pipe(outputStream, { end: false });
 
@@ -33,7 +57,6 @@ function mg() {
     }
 
     appendFiles();
-    spawn("ffmpeg", ["-f", "s16le", "-ar", "48000", "-ac", "2", "-i", "../recordings/merge.pcm", "../out.mp3"])
 }
 
 exports.enter = function(msg, channelName) {
@@ -80,6 +103,6 @@ exports.exit = function (msg) {
     dispatcher.on("finish", () => {
         voiceChannel.leave();
         console.log(`\nSTOPPED RECORDING\n`);
-        mg();
+        mg();    
     });
 };
