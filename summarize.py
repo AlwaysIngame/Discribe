@@ -4,7 +4,6 @@ import pandas as pd
 import torch
 import whisper
 
-
 def main(filename):
     start_time = time.time()
     device = torch.device("cuda:0" if torch.cuda.is_available() else "cpu")
@@ -18,7 +17,7 @@ while True:
     filename = input()
     if filename:
         full_transcript = main(filename)
-        break 
+        break
 
 api_key = 'FRyzo2xU7j2Cp9sPgpSHTafsBsuI3X4UnNmBmDZO'
 co = cohere.Client(api_key)
@@ -30,7 +29,7 @@ prediction = co.generate(
     prompt=prompt,
     return_likelihoods = 'GENERATION',
     stop_sequences=['"'],
-    max_tokens = max(40, len(prompt)//10),
+    max_tokens = min(512, max(40, len(prompt)//10)),
     temperature=1,
     num_generations=n_generations,
     k=0,
