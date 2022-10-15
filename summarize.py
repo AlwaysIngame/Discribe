@@ -37,5 +37,5 @@ while True:
             print(i)
         os.remove(line.strip())
     except:
-        print("The summarization failed. :sunglasses:")
+        print("The summarization failed. :sob:")
         continue
