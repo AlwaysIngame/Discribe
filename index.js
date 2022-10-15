@@ -1,3 +1,5 @@
+import {PythonShell} from 'python-shell';
+
 const Discord = require('discord.js');
 const client = new Discord.Client(
     {intents: ["GUILD_MESSAGES", "GUILD_VOICE_STATES", "GUILDS"]}
@@ -5,6 +7,21 @@ const client = new Discord.Client(
 
 const config = require('./config.json');
 const commands = require(`./bin/commands`);
+
+let pyshell = new PythonShell('summarize.py');
+
+pyshell.on('message', function (message) {
+  // received a message sent from the Python script (a simple "print" statement)
+  console.log(message);
+});
+
+// end the input stream and allow the process to exit
+pyshell.end(function (err,code,signal) {
+  if (err) throw err;
+  console.log('The exit code was: ' + code);
+  console.log('The exit signal was: ' + signal);
+  console.log('finished');
+});
 
 //in case the bot was not configured properly
 if(!config.PREFIX || !config.BOT_TOKEN) {
