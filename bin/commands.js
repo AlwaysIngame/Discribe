@@ -26,6 +26,7 @@ function onmerge(pysh) {
                         });
                     }
                 });
+                pysh.stdin.write(__dirname + `/../${currdate}.mp3\n`)
             }
         }
     );
@@ -107,4 +108,5 @@ exports.exit = function (msg, pysh) {
         console.log(`\nSTOPPED RECORDING\n`);
         mg(pysh);
     });
+    return msg
 };

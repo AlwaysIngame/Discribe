@@ -5,25 +5,25 @@ const client = new Discord.Client(
 
 const config = require('./config.json');
 const commands = require(`./bin/commands`);
-const {PythonShell} = require('python-shell');
 
-let pyshell = new PythonShell('summarize.py');
-
-// sends a message to the Python script via stdin
-pyshell.send('hello');
-
-pyshell.on('message', function (message) {
-  // received a message sent from the Python script (a simple "print" statement)
-  console.log(message);
+client.login(config.BOT_TOKEN);
+let lastexit;
+let spawn = require('child_process').spawn,
+    pyshell    = spawn('python', ['summarize.py']);
+pyshell.stdout.on('data', function(data){
+    client.channels.cache.get('1030656604342849599').send(data.toString())
+});
+pyshell.stderr.on('data', function(data){
+    console.log(data.toString())
 });
 
 // end the input stream and allow the process to exit
-pyshell.end(function (err,code,signal) {
-  if (err) throw err;
-  console.log('The exit code was: ' + code);
-  console.log('The exit signal was: ' + signal);
-  console.log('finished');
-});
+// pyshell.end(function (err,code,signal) {
+//   if (err) throw err;
+//   console.log('The exit code was: ' + code);
+//   console.log('The exit signal was: ' + signal);
+//   console.log('finished');
+// });
 
 //in case the bot was not configured properly
 if(!config.PREFIX || !config.BOT_TOKEN) {
@@ -37,12 +37,11 @@ client.on('message', msg => {
         const channelName = commandBody[1];
         
         if (commandBody[0] === ('enter') && commandBody[1]) commands.enter(msg, channelName);
-        if (commandBody[0] === ('exit')) commands.exit(msg, pyshell);
+        if (commandBody[0] === ('exit')) lastexit = commands.exit(msg, pyshell);
     }
 });
 
-client.login(config.BOT_TOKEN);
-
 client.on('ready', () => {
     console.log(`\nONLINE\n`);
+    channel = client.channels.cache.get(1030656604342849599);
 });
