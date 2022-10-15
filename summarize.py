@@ -7,6 +7,7 @@ model = whisper.load_model("base")
 
 def to_transcript(filename):
     result = model.transcribe(filename.strip())
+    print("**Full Transcript:**\n" + result["text"])
     return result["text"]
 
 def do_cohere(prompt):
@@ -22,14 +23,18 @@ def do_cohere(prompt):
         k=0,
         p=0.75)
     l = []
-    for i in range(n_generations):
+    for i in range(len(prediction.generations)):
         l.append(prediction.generations[i].text)
     return l
 
 while True:
-    line = input()
-    text = to_transcript(line)
-    items = ["**Full Transcript:**\n" + text] + ["**Summarizations Below:**"] + do_cohere(text)
-    for i in items:
-        print(i)
-    os.remove(line.strip())
+    try:
+        line = input()
+        t = to_transcript(line)
+        items = ["**Summarizations Below:**"] + do_cohere(t)
+        for i in items:
+            print(i)
+        os.remove(line.strip())
+    except:
+        print("The summarization failed.")
+        continue
