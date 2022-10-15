@@ -19,7 +19,7 @@ def do_cohere(prompt):
         stop_sequences=['"'],
         max_tokens = min(512, max(40, len(prompt)//10)),
         temperature=1,
-        num_generations=n_generations,
+        num_generations=n_generations
         k=0,
         p=0.75)
     l = []
