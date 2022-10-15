@@ -19,7 +19,7 @@ def do_cohere(prompt):
         stop_sequences=['"'],
         max_tokens = min(512, max(40, len(prompt)//10)),
         temperature=1,
-        num_generations=n_generations
+        num_generations=n_generations,
         k=0,
         p=0.75)
     l = []
@@ -33,7 +33,7 @@ while True:
         t = to_transcript(line)
         items = do_cohere(t)
         for i in items:
-            print("**:arrow_down: Summarization " + str(items.index(i) + 1) + " :arrow_down:**")
+            print("**:arrow_down: Summarization " + str(items.index(i) + 1) + ":arrow_down:**")
             print(i)
         os.remove(line.strip())
     except cohere.error.CohereError:
