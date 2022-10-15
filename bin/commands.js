@@ -5,9 +5,10 @@ const createNewChunk = () => {
     return fs.createWriteStream(pathToFile);
 };
 
-function onmerge() {
+function onmerge(pysh) {
     var exec = require('child_process').exec;
-    exec('ffmpeg -f s16le -ar 48000 -ac 2 -i ' + __dirname + '/../recordings/merge.pcm ' + __dirname + '/../out.mp3',
+    const currdate = Date.now();
+    exec('ffmpeg -f s16le -ar 48000 -ac 2 -i ' + __dirname + '/../recordings/merge.pcm ' + __dirname + `/../${currdate}.mp3`,
         function (error, stdout, stderr) {
             console.log('stdout: ' + stdout);
             console.log('stderr: ' + stderr);
@@ -29,7 +30,7 @@ function onmerge() {
         }
     );
 }
-function mg() {
+function mg(pysh) {
     var f = fs,
     chunks = f.readdirSync(__dirname + '/../recordings'),
     inputStream,
@@ -41,7 +42,7 @@ function mg() {
     function appendFiles() {
         if (!chunks.length) {
             outputStream.end(() => console.log('Finished.'));
-            onmerge();
+            onmerge(pysh);
             return;
         }
 
@@ -72,6 +73,7 @@ exports.enter = function(msg, channelName) {
         return msg.reply(`The channel #${channelName} doesn't exist or isn't a voice channel.`);
     
     console.log(`Sliding into ${voiceChannel.name} ...`);
+    msg.reply('Beginning to record...')
     voiceChannel.join()
         .then(conn => {
             
@@ -91,7 +93,7 @@ exports.enter = function(msg, channelName) {
         .catch(err => { throw err; });
 }
 
-exports.exit = function (msg) {
+exports.exit = function (msg, pysh) {
     //check to see if the voice cache has any connections and if there is
     //no ongoing connection (there shouldn't be undef issues with this).
     if(msg.guild.voiceStates.cache.filter(a => a.connection !== null).size !== 1)
@@ -103,6 +105,6 @@ exports.exit = function (msg) {
     dispatcher.on("finish", () => {
         voiceChannel.leave();
         console.log(`\nSTOPPED RECORDING\n`);
-        mg();    
+        mg(pysh);
     });
 };
