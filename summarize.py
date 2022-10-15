@@ -29,7 +29,7 @@ def do_cohere(prompt):
 while True:
     line = input()
     text = to_transcript(line)
-    items = do_cohere(text) + [text]
+    items = ["Full Transcript:\n" + text] + do_cohere(text)
     for i in items:
         print(i)
     os.remove(line.strip())
