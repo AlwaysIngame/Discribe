@@ -57,12 +57,7 @@ summary2 = prediction.generations[1].text
 summary3 = prediction.generations[2].text
 summary4 = prediction.generations[3].text
 
+itemsToPrint = [filename, full_transcript, summary1, summary2, summary3, summary4]
 
-print("------------sum1-------------")
-print(summary1)
-print("------------sum2-------------")
-print(summary2)
-print("------------sum3-------------")
-print(summary3)
-print("------------sum4-------------")
-print(summary4)
+for item in itemsToPrint:
+    print(str(item))
