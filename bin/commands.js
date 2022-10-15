@@ -5,7 +5,7 @@ const createNewChunk = () => {
     return fs.createWriteStream(pathToFile);
 };
 
-function onmerge(pysh) {
+function onmerge(pysh, msg) {
     var exec = require('child_process').exec;
     const currdate = Date.now();
     exec('ffmpeg -f s16le -ar 48000 -ac 2 -i ' + __dirname + '/../recordings/merge.pcm ' + __dirname + `/../${currdate}.mp3`,
@@ -26,12 +26,13 @@ function onmerge(pysh) {
                         });
                     }
                 });
+                msg.reply("Here is your recording. Summarization will arrive soon", { files: [__dirname + `/../${currdate}.mp3`] });
                 pysh.stdin.write(__dirname + `/../${currdate}.mp3\n`)
             }
         }
     );
 }
-function mg(pysh) {
+function mg(pysh, msg) {
     var f = fs,
     chunks = f.readdirSync(__dirname + '/../recordings'),
     inputStream,
@@ -43,7 +44,7 @@ function mg(pysh) {
     function appendFiles() {
         if (!chunks.length) {
             outputStream.end(() => console.log('Finished.'));
-            onmerge(pysh);
+            onmerge(pysh, msg);
             return;
         }
 
@@ -106,7 +107,7 @@ exports.exit = function (msg, pysh) {
     dispatcher.on("finish", () => {
         voiceChannel.leave();
         console.log(`\nSTOPPED RECORDING\n`);
-        mg(pysh);
+        mg(pysh, msg);
     });
     return msg
 };

@@ -32,3 +32,4 @@ while True:
     items = ["**Full Transcript:**\n" + text] + ["**Summarizations Below:**"] + do_cohere(text)
     for i in items:
         print(i)
+    os.remove(line.strip())
