@@ -12,6 +12,10 @@ currtime = None
 
 
 def to_transcript(filename):
+    """
+    Take an mp3 file and return a string transcribing the voice. Profanity is censored.
+    Delete the mp3 file after. Additionally print some heading text.
+    """
     result = profanity.censor(model.transcribe(filename.strip())["text"], '\*')
     os.remove(filename.strip())
     print(
