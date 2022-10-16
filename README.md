@@ -1,4 +1,5 @@
-![discribelogowide](https://user-images.githubusercontent.com/62484135/196019074-5246f5be-3e9e-4b2a-bffd-5e764d368ba5.png)
+<img src="https://user-images.githubusercontent.com/62484135/196019119-12338de8-dd45-47db-8658-115ad5b068e1.png" width="100" height="100" />
+
 # Discribe
 A discord bot that records audio in a voice channel and then translates it to text, as well as summarizing your conversation. Built using OpenAI's Whisper and the Co:here API.
 
