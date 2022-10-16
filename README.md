@@ -7,11 +7,11 @@ A discord bot that records audio in a voice channel and then translates it to te
 
 ### Installing dependencies and setting up folders
 1. run ``npm i`` to install the required dependencies
-2. FFMPEG: run ``https://ffmpeg.org/download.html``
+2. FFMPEG: go to ``https://ffmpeg.org/download.html``
 3. PIP packages: run ``pip install -r requirements.txt``
 
 ### Setting up the bot
-3. enter all the fields in ``config.json``
+3. copy all fields from ``config.example.json`` to a new file ``config.json`` and fill in all fields
 4. run ``npm start`` to launch bot
 5. ``!enter <channel name>`` to enter a voice channel and start recording and ``!exit`` to leave
 
@@ -19,3 +19,7 @@ A discord bot that records audio in a voice channel and then translates it to te
 ## Example
 https://user-images.githubusercontent.com/62484135/196019009-e1378363-3615-425f-b93b-e6c5e6a654c0.mp4
 ![unknown-1](https://user-images.githubusercontent.com/54761690/196018554-1c7e3617-edf9-4925-9ca5-7ed2149444cc.png)
+
+## About
+Made at Hack The Valley 7 in 36 hours ⚡ <br />
+Licensed under MIT License.

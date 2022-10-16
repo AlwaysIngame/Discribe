@@ -1,0 +1,5 @@
+{
+    "BOT_TOKEN": "YOUR BOT TOKEN HERE",
+    "PREFIX": "!",
+    "api_key": "YOUR COHERE API KEY HERE"
+}
