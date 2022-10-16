@@ -103,11 +103,13 @@ exports.exit = function (msg, pysh) {
     
     //make sure it's .last() not .first().  some discord js magic going on rn
     const { channel: voiceChannel, connection: conn } = msg.guild.voiceStates.cache.last();
+    console.log(voiceChannel);
+    console.log(conn);
     const dispatcher = conn.play(__dirname + "/../sounds/badumtss.mp3", { volume: 0.45 });
     dispatcher.on("finish", () => {
         voiceChannel.leave();
         console.log(`\nSTOPPED RECORDING\n`);
         mg(pysh, msg);
     });
-    return msg
+    return msg.channel
 };

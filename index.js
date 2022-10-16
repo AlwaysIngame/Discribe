@@ -5,13 +5,12 @@ const client = new Discord.Client(
 
 const config = require('./config.json');
 const commands = require(`./bin/commands`);
-
+let replychannel;
 client.login(config.BOT_TOKEN);
-let lastexit;
 let spawn = require('child_process').spawn,
     pyshell    = spawn('python', ['summarize.py']);
 pyshell.stdout.on('data', function(data){
-    data.toString().match(/.{1,1999}/g).forEach(s => client.channels.cache.get('1030656604342849599').send(s));
+    data.toString().match(/.{1,1999}/g).forEach(s => replychannel.send(s));
 });
 pyshell.stderr.on('data', function(data){
     console.log(data.toString())
@@ -35,9 +34,9 @@ client.on('message', msg => {
     if (msg.content.startsWith(config.PREFIX)) {
         const commandBody = msg.content.substring(config.PREFIX.length).split(' ');
         const channelName = commandBody[1];
-        
+        lastmsgchannel = msg.channel
         if (commandBody[0] === ('enter') && commandBody[1]) commands.enter(msg, channelName);
-        if (commandBody[0] === ('exit')) lastexit = commands.exit(msg, pyshell);
+        if (commandBody[0] === ('exit')) replychannel = commands.exit(msg, pyshell);
         if (commandBody[0] === ('ping')) {
             const pingEmbed = new Discord.MessageEmbed()
                 .setTitle("Ping")
@@ -50,5 +49,4 @@ client.on('message', msg => {
 
 client.on('ready', () => {
     console.log(`\nONLINE\n`);
-    channel = client.channels.cache.get(1030656604342849599);
 });

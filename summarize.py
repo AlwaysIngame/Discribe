@@ -3,23 +3,24 @@ import whisper
 import os
 from better_profanity import profanity
 import datetime
+import json
 
-api_key = "FRyzo2xU7j2Cp9sPgpSHTafsBsuI3X4UnNmBmDZO"
+api_key = json.load(open('./config.json'))["api_key"]
 co = cohere.Client(api_key)
 model = whisper.load_model("base")
 currtime = None
 
 
 def to_transcript(filename):
-    result = model.transcribe(filename.strip())
+    result = profanity.censor(model.transcribe(filename.strip())["text"], '\*')
     os.remove(filename.strip())
     print(
         "**:arrow_down: Full Transcript from call at "
         + currtime
         + " :arrow_down:**\n"
-        + result["text"]
+        + result
     )
-    return profanity.censor(result["text"])
+    return result
 
 
 def do_cohere(prompt):
