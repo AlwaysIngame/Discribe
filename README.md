@@ -17,8 +17,12 @@ A discord bot that records audio in a voice channel and then translates it to te
 
 
 ## Example
-<video src='https://github.com/AlwaysIngame/Discribe/blob/main/sounds/examplesound.mp3?raw=true' width=180/>
-![unknown-1](https://github.com/AlwaysIngame/Discribe/blob/main/196018554-1c7e3617-edf9-4925-9ca5-7ed2149444cc.png?raw=true)
+
+
+
+
+https://user-images.githubusercontent.com/53922405/196022212-5d1fe0e2-6d0d-49c5-aade-ddee3a4e5ac5.mp4
+
 
 ## About
 Made at Hack The Valley 7 in 36 hours ⚡ <br />
