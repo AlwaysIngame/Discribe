@@ -1,0 +1,3 @@
+cohere==2.6.1
+better-profanity==0.7.0
+git+https://github.com/openai/whisper.git
