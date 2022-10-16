@@ -1,13 +1,13 @@
 {
-	"name": "discord-voice-recorder",
+	"name": "Discribe",
 	"version": "1.0.0",
-	"description": "A nifty script that can pipe out audio from a voice channel to your local storage.",
+	"description": "A discord bot that records a voice channel, and converts it to an mp3. Additionally it uses AI to transcribe and summarize the conversation.",
 	"main": "index.js",
 	"scripts": {
 		"start": "node index.js"
 	},
 	"keywords": [],
-	"author": "Sravanth C.",
+	"author": "Hriday Algh +3.",
 	"license": "MIT",
 	"engines": {
 		"node": ">=12.0.0"
