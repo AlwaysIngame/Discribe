@@ -17,9 +17,5 @@ A discord bot that records audio in a voice channel and then translates it to te
 
 
 ## Example
-
-![unknown-1](https://user-images.githubusercontent.com/54761690/196018554-1c7e3617-edf9-4925-9ca5-7ed2149444cc.png)
-
-## Example Audio
 https://user-images.githubusercontent.com/62484135/196019009-e1378363-3615-425f-b93b-e6c5e6a654c0.mp4
-
+![unknown-1](https://user-images.githubusercontent.com/54761690/196018554-1c7e3617-edf9-4925-9ca5-7ed2149444cc.png)
