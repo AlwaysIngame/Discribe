@@ -38,6 +38,13 @@ client.on('message', msg => {
         
         if (commandBody[0] === ('enter') && commandBody[1]) commands.enter(msg, channelName);
         if (commandBody[0] === ('exit')) lastexit = commands.exit(msg, pyshell);
+        if (commandBody[0] === ('ping')) {
+            const pingEmbed = new Discord.MessageEmbed()
+                .setTitle("Ping")
+                .setDescription(`:ping_pong: Pong!\nLatency is : ${Date.now() - msg.createdTimestamp}ms. API Latency is : ${Math.round(client.ws.ping)}ms`)
+                .setColor("#03a1fc")
+            msg.channel.send(pingEmbed);
+        }
     }
 });
 
