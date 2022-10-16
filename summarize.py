@@ -11,14 +11,14 @@ currtime = None
 
 
 def to_transcript(filename):
-    result = profanity.censor(model.transcribe(filename.strip()))
+    result = model.transcribe(filename.strip())
     print(
         "**:arrow_down: Full Transcript from call at "
         + currtime
         + " :arrow_down:**\n"
         + result["text"]
     )
-    return result["text"]
+    return profanity.censor(result["text"])
 
 
 def do_cohere(prompt):
