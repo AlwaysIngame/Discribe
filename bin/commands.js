@@ -26,7 +26,7 @@ function onmerge(pysh, msg) {
                         });
                     }
                 });
-                msg.reply("Here is your recording. Transcript and summarization will arrive soon", { files: [__dirname + `/../${currdate}.mp3`] });
+                msg.reply(":champagne: Here is your recording. Transcript and summarization will arrive soon", { files: [__dirname + `/../${currdate}.mp3`] });
                 pysh.stdin.write(__dirname + `/../${currdate}.mp3\n`)
             }
         }

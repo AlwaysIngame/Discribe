@@ -19,9 +19,9 @@ def to_transcript(filename):
     result = profanity.censor(model.transcribe(filename.strip())["text"], '\*')
     os.remove(filename.strip())
     print(
-        "**:arrow_down: Full Transcript from call at "
+        "**:scroll: Full Transcript from call at "
         + currtime
-        + " :arrow_down:**\n"
+        + " :clock1:**\n"
         + result
     )
     return result
@@ -47,7 +47,7 @@ def do_cohere(prompt):
                 l.add(i.text)
         return list(l)
     except cohere.error.CohereError:
-        return ["No bad words in summarization :bangbang:"]
+        return ["Failed to summarize :sob: Check your microphone and maybe try again?"]
 
 
 while True:
@@ -56,5 +56,5 @@ while True:
     t = to_transcript(line)
     items = do_cohere(t)
     for i in range(len(items)):
-        print("**:arrow_down: Summarization " + str(i + 1) + " :arrow_down:**")
+        print("**Summarization " + str(i + 1) + " :pinching_hands:**")
         print(items[i])
